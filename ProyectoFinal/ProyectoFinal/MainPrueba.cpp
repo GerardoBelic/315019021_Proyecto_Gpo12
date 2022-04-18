@@ -37,7 +37,7 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
 
 // Camera
-Camera  camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera  camera(glm::vec3(955.0f, -9615.0f, 11074.0f));
 GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
 bool keys[1024];
@@ -188,7 +188,7 @@ int main()
 	// OpenGL options
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	Shader lightingShader("Shaders/lighting.vs", "Shaders/lighting.frag");
 	Shader lampShader("Shaders/lamp.vs", "Shaders/lamp.frag");
@@ -196,15 +196,25 @@ int main()
 	Shader animShader("Shaders/anim.vs", "Shaders/anim.frag");
 	Shader modelShader("Shaders/modelLoading.vs", "Shaders/modelLoading.frag");
 
-	//Model BotaDer((char*)"Models/Personaje/bota.obj");
-	//Model PiernaDer((char*)"Models/Personaje/piernader.obj");
-	//Model PiernaIzq((char*)"Models/Personaje/piernaizq.obj");
-	//Model Torso((char*)"Models/Personaje/torso.obj");
-	//Model BrazoDer((char*)"Models/Personaje/brazoder.obj");
-	//Model BrazoIzq((char*)"Models/Personaje/brazoizq.obj");
-	//Model Cabeza((char*)"Models/Personaje/cabeza.obj");
+	//Objetos de la escena
+	Model armario((char*)"Models/Siete_Objetos/Armario/armario.obj");
+	Model caja_armas((char*)"Models/Siete_Objetos/Caja_Armas/caja_armas.obj");
+	Model cama((char*)"Models/Siete_Objetos/Cama/cama.obj");
+	Model escritorio((char*)"Models/Siete_Objetos/Escritorio/escritorio.obj");
+	Model planta((char*)"Models/Siete_Objetos/Planta/planta.obj");
+	Model sillon((char*)"Models/Siete_Objetos/Sillon/sillon.obj");
+	Model terminal((char*)"Models/Siete_Objetos/Terminal/terminal.obj");
 
-	Model terminal((char*)"Models/Terminal/terminal.obj");
+	Model habitacion_centro((char*)"Models/Habitacion/habitacion_centro.obj");
+	Model pared_centro((char*)"Models/Habitacion/pared_centro.obj");
+	Model pared_entrada((char*)"Models/Habitacion/pared_entrada.obj");
+	Model pared_esquina((char*)"Models/Habitacion/pared_esquina.obj");
+	Model puerta((char*)"Models/Habitacion/puerta.obj");
+	Model lampara((char*)"Models/Habitacion/lampara.obj");
+
+	Model lucky_38((char*)"Models/Edificio/Lucky_38/lucky_38.obj");
+
+	Model desierto((char*)"Models/Terreno/desierto.obj");
 
 	//Objeto traslucido
 	//Model objTras("Models/Cubo/Cube01.obj");
@@ -395,16 +405,23 @@ int main()
 
 	// Load textures
 	vector<const GLchar*> faces;
-	faces.push_back("SkyBox/right.tga");
-	faces.push_back("SkyBox/left.tga");
-	faces.push_back("SkyBox/top.tga");
-	faces.push_back("SkyBox/bottom.tga");
-	faces.push_back("SkyBox/back.tga");
-	faces.push_back("SkyBox/front.tga");
+	//faces.push_back("SkyBox/right.tga");
+	//faces.push_back("SkyBox/left.tga");
+	//faces.push_back("SkyBox/top.tga");
+	//faces.push_back("SkyBox/bottom.tga");
+	//faces.push_back("SkyBox/back.tga");
+	//faces.push_back("SkyBox/front.tga");
+
+	faces.push_back("SkyBox/right_2.jpg");
+	faces.push_back("SkyBox/left_2.jpg");
+	faces.push_back("SkyBox/back_2.jpg");
+	faces.push_back("SkyBox/front.jpg");
+	faces.push_back("SkyBox/top.jpg");
+	faces.push_back("SkyBox/bottom.jpg");
 	
 	GLuint cubemapTexture = TextureLoading::LoadCubemap(faces);
 
-	glm::mat4 projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 1000.0f);
+	glm::mat4 projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 60000.0f);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -523,146 +540,226 @@ int main()
 		glBindVertexArray(VAO);
 		glm::mat4 tmp = glm::mat4(1.0f); //Temp
 
-
-
-		//Carga de modelo 
-		//Personaje
-
 		modelShader.Use();
 		view = camera.GetViewMatrix();
 		glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
 		glm::mat4 model(1);
-		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		terminal.Draw(modelShader);
 
-	//	glm::mat4 model(1);
-	//	tmp = model = glm::translate(model, glm::vec3(0, 1, 0));
-	//	model = glm::translate(model,glm::vec3(posX,posY,posZ));
-	//	model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
-	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	//	Torso.Draw(lightingShader);
+		//Carga de modelo 
+		//7 Objetos
 
-	//
+		{
+			//Armario
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(641.0227f, -9247.679f, 10944.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-294.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			armario.Draw(modelShader);
 
-	//	//Pierna Izq
-	//	view = camera.GetViewMatrix();
-	//	model = glm::translate(tmp, glm::vec3(-0.5f, 0.0f, -0.1f));
-	//	model = glm::translate(model, glm::vec3(posX, posY, posZ));
-	//	model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
-	//	model = glm::rotate(model, glm::radians(-rotRodIzq), glm::vec3(1.0f, 0.0f, 0.0f));
-	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	//	glUniform1f(glGetUniformLocation(lightingShader.Program, "transparencia"), 0.0);
-	//	PiernaDer.Draw(lightingShader);
-	////	Pie Izq
-	//	view = camera.GetViewMatrix();
-	//	model = glm::translate(model, glm::vec3(0, -0.9f, -0.2f));
-	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	//	BotaDer.Draw(lightingShader);
+			//Caja de armas
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(620.0f, -9427.0f, 10945.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			caja_armas.Draw(modelShader);
 
-	//	//Pierna Der
-	//	view = camera.GetViewMatrix();
-	//	model = glm::translate(tmp, glm::vec3(0.5f, 0.0f, -0.1f));
-	//	model = glm::translate(model, glm::vec3(posX, posY, posZ));
-	//	model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
-	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	//	glUniform1f(glGetUniformLocation(lightingShader.Program, "transparencia"), 0.0);
+			//Cama
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(953.0f, -9204.0f, 10974.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			cama.Draw(modelShader);
 
-	//	PiernaIzq.Draw(lightingShader);
-	//	//Pie Der
-	//	view = camera.GetViewMatrix();
-	//	model = glm::translate(model, glm::vec3(0, -0.9f, -0.2f));
-	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	//	BotaDer.Draw(lightingShader);
+			//Escritorio
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(786.6762f, -9630.152f, 10943.914f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			escritorio.Draw(modelShader);
 
-	//	//Brazo derecho
-	//	view = camera.GetViewMatrix();
-	//	model = glm::mat4(1);
-	//	model = glm::translate(model, glm::vec3(posX, posY, posZ));
-	//	model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
-	//	model = glm::rotate(model, glm::radians(-rotRodIzq), glm::vec3(1.0f, 0.0f, 0.0f));
-	//	model = glm::translate(model, glm::vec3(-0.75f, 2.5f, 0));
-	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	//	BrazoDer.Draw(lightingShader);
+			//Planta
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(674.3022f, -9163.861f, 10944.109f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			planta.Draw(modelShader);
 
-	////	Brazo Izquierdo
-	//	view = camera.GetViewMatrix();
-	//	model = glm::mat4(1);
-	//	model = glm::translate(model, glm::vec3(posX, posY, posZ));
-	//	model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
-	//	model = glm::translate(model, glm::vec3(0.75f, 2.5f, 0));
-	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	//	BrazoIzq.Draw(lightingShader);
+			//Sillon
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(1124.4843f, -9790.478f, 10978.414f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			sillon.Draw(modelShader);
 
-	//	//Cabeza
-	//	view = camera.GetViewMatrix();
-	//	model = glm::mat4(1);
-	//	model = glm::translate(model, glm::vec3(posX, posY, posZ));
-	//	model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0));
-	//	model = glm::translate(model, glm::vec3(0.0f, 2.5f, 0));
-	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	//	glUniform1f(glGetUniformLocation(lightingShader.Program, "transparencia"), 0.0);
-	//	Cabeza.Draw(lightingShader);
-	//
-	//	//Traslucidez
+			//Terminal
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(783.8521f, -9623.662f, 10999.195f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			terminal.Draw(modelShader);
 
-	//	glEnable(GL_BLEND);
-	//	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-	//	model = glm::mat4(1);
-	//	model = glm::scale(model, glm::vec3(1.0f));
-	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	//	glUniform1f(glGetUniformLocation(lightingShader.Program, "transparencia"), 0.0);
-	//	objTras.Draw(lightingShader);
-	//	glDisable(GL_BLEND);
-	//	glEnable(GL_DEPTH_TEST);
-	//	glBindVertexArray(0);
+		}
+
+		//Habitacion
+
+		{
+			//Habitación centro
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(960.0f, -9472.0f, 10944.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			habitacion_centro.Draw(modelShader);
+
+			//Pared esquina
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(704.0f, -9216.0f, 10944.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			pared_esquina.Draw(modelShader);
+
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(1216.0f, -9216.0f, 10944.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			pared_esquina.Draw(modelShader);
+
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(1216.0f, -9728.0f, 10944.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			pared_esquina.Draw(modelShader);
+
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(704.0f, -9728.0f, 10944.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			pared_esquina.Draw(modelShader);
+
+			//Pared centro
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(704.0f, -9472.0f, 10944.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			pared_centro.Draw(modelShader);
+
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(960.0f, -9216.0f, 10944.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			pared_centro.Draw(modelShader);
+
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(1216.0f, -9472.0f, 10944.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			pared_centro.Draw(modelShader);
+
+			//Pared puerta
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(960.0f, -9728.0f, 10944.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			pared_entrada.Draw(modelShader);
+
+			//Puerta
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(960.0f, -9856.0f, 10944.0f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			puerta.Draw(modelShader);
+
+			//Lamparas
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(958.27f, -9313.07f, 11284.16f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			lampara.Draw(modelShader);
+
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(958.27f, -9588.88f, 11284.16f));
+			//model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			lampara.Draw(modelShader);
+
+		}
+
+		//Edificio
+		{
+			model = glm::mat4(1);
+			model = glm::translate(model, glm::vec3(958.27f, -9488.88f - 80.0f, 11284.16f));
+			model = glm::scale(model, glm::vec3(75.0f));
+			model = glm::translate(model, glm::vec3(0.0f, 0.0f, -155.0f));
+			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			lucky_38.Draw(modelShader);
+		}
+
+		//Terreno
+		{
+			for (int i = 0; i < 3; ++i)
+			{
+				for (int j = 0; j < 3; ++j)
+				{
+					model = glm::mat4(1);
+					model = glm::translate(model, glm::vec3(958.27f, -9488.88f, 11284.16f));
+					model = glm::scale(model, glm::vec3(5000.0f * 2.0f));
+					model = glm::translate(model, glm::vec3(0.0f, 0.0f, -1.1f));
+					model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+					model = glm::translate(model, glm::vec3(-3.44f + 3.43f * i, 0.0f, -3.44f + 3.43 * j));
+					glUniformMatrix4fv(glGetUniformLocation(modelShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+					desierto.Draw(modelShader);
+				}
+			}
+		}
 
 
-	//	// Also draw the lamp object, again binding the appropriate shader
-	//	lampShader.Use();
-	//	// Get location objects for the matrices on the lamp shader (these could be different on a different shader)
-	//	modelLoc = glGetUniformLocation(lampShader.Program, "model");
-	//	viewLoc = glGetUniformLocation(lampShader.Program, "view");
-	//	projLoc = glGetUniformLocation(lampShader.Program, "projection");
+		// Draw skybox as last
+		glDepthFunc(GL_LEQUAL);  // Change depth function so depth test passes when values are equal to depth buffer's content
+		SkyBoxshader.Use();
+		view = glm::mat4(glm::mat3(camera.GetViewMatrix()));	// Remove any translation component of the view matrix
+		glUniformMatrix4fv(glGetUniformLocation(SkyBoxshader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(glGetUniformLocation(SkyBoxshader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-	//	// Set matrices
-	//	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-	//	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-	//	model = glm::mat4(1);
-	//	model = glm::translate(model, lightPos);
-	//	//model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	//	// Draw the light object (using light's vertex attributes)
-	//	glBindVertexArray(lightVAO);
-	//	for (GLuint i = 0; i < 4; i++)
-	//	{
-	//		model = glm::mat4(1);
-	//		model = glm::translate(model, pointLightPositions[i]);
-	//		model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-	//		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	//		glDrawArrays(GL_TRIANGLES, 0, 36);
-	//	}
-	//	glBindVertexArray(0);
-
-
-	//	// Draw skybox as last
-	//	glDepthFunc(GL_LEQUAL);  // Change depth function so depth test passes when values are equal to depth buffer's content
-	//	SkyBoxshader.Use();
-	//	view = glm::mat4(glm::mat3(camera.GetViewMatrix()));	// Remove any translation component of the view matrix
-	//	glUniformMatrix4fv(glGetUniformLocation(SkyBoxshader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-	//	glUniformMatrix4fv(glGetUniformLocation(SkyBoxshader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-
-	//	// skybox cube
-	//	glBindVertexArray(skyboxVAO);
-	//	glActiveTexture(GL_TEXTURE1);
-	//	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
-	//	glDrawArrays(GL_TRIANGLES, 0, 36);
-	//	glBindVertexArray(0);
-	//	glDepthFunc(GL_LESS); // Set depth function back to default
+		// skybox cube
+		glBindVertexArray(skyboxVAO);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glBindVertexArray(0);
+		glDepthFunc(GL_LESS); // Set depth function back to default
 
 
 
