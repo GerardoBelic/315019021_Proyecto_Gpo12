@@ -22,7 +22,7 @@ enum Camera_Movement
 // Default camera values
 const GLfloat YAW = -90.0f;
 const GLfloat PITCH = 0.0f;
-const GLfloat SPEED = 60.0f * 32.0f;
+const GLfloat SPEED = 60.0f;
 const GLfloat SENSITIVTY = 0.25f;
 const GLfloat ZOOM = 45.0f;
 
@@ -141,6 +141,11 @@ public:
 	glm::vec3 GetFront()
 	{
 		return this->front;
+	}
+	
+	void SetSpeed(GLfloat speed)
+	{
+		movementSpeed = speed;
 	}
 
 private:

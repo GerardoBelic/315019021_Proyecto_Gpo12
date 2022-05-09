@@ -1,6 +1,6 @@
 #version 330 core
 
-#define NUMBER_OF_POINT_LIGHTS 4
+#define NUMBER_OF_POINT_LIGHTS 3
 
 struct Material
 {
@@ -71,23 +71,25 @@ void main( )
     // Properties
     vec3 norm = normalize( Normal );
     vec3 viewDir = normalize( viewPos - FragPos );
+	
+	vec3 result = vec3(0.0);
     
     // Directional lighting
-    vec3 result = CalcDirLight( dirLight, norm, viewDir );
+    //result = CalcDirLight( dirLight, norm, viewDir );
     
     // Point lights
     for ( int i = 0; i < NUMBER_OF_POINT_LIGHTS; i++ )
     {
-        //result += CalcPointLight( pointLights[i], norm, FragPos, viewDir );
+        result += CalcPointLight( pointLights[i], norm, FragPos, viewDir );
     }
     
     // Spot light
-    //result += CalcSpotLight( spotLight, norm, FragPos, viewDir );
+    result += CalcSpotLight( spotLight, norm, FragPos, viewDir );
     
-	color = vec4(result, 1.0);
+	color = vec4(result, texture( material.diffuse, TexCoords).a);
     //color = vec4( result,texture( material.diffuse, TexCoords).rgb );
-	  //if(color.a < 0.1 && trans>0)
-        //discard;
+	  if(color.a < 0.1)
+        discard;
 }
 
 // Calculates the color when using a directional light.
@@ -128,7 +130,7 @@ vec3 CalcPointLight( PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir )
     float spec = pow( max( dot( viewDir, reflectDir ), 0.0 ), material.shininess );
     
     // Attenuation
-    float distance = length( light.position - fragPos );
+    float distance = length( light.position - fragPos ) / 100.0;
     float attenuation = 1.0f / ( light.constant + light.linear * distance + light.quadratic * ( distance * distance ) );
     
     // Combine results
@@ -162,7 +164,7 @@ vec3 CalcSpotLight( SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir )
     float spec = pow( max( dot( viewDir, reflectDir ), 0.0 ), material.shininess );
     
     // Attenuation
-    float distance = length( light.position - fragPos );
+    float distance = length( light.position - fragPos ) / 100.0;
     float attenuation = 1.0f / ( light.constant + light.linear * distance + light.quadratic * ( distance * distance ) );
     
     // Spotlight intensity

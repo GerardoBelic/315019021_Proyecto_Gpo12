@@ -71,9 +71,11 @@ void main( )
     // Properties
     vec3 norm = normalize( Normal );
     vec3 viewDir = normalize( viewPos - FragPos );
+	
+	vec3 result = vec3(0.0);
     
     // Directional lighting
-    vec3 result = CalcDirLight( dirLight, norm, viewDir );
+    result = CalcDirLight( dirLight, norm, viewDir );
     
     // Point lights
     for ( int i = 0; i < NUMBER_OF_POINT_LIGHTS; i++ )
@@ -128,7 +130,7 @@ vec3 CalcPointLight( PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir )
     float spec = pow( max( dot( viewDir, reflectDir ), 0.0 ), material.shininess );
     
     // Attenuation
-    float distance = length( light.position - fragPos );
+    float distance = length( light.position - fragPos ) / 1000.0;
     float attenuation = 1.0f / ( light.constant + light.linear * distance + light.quadratic * ( distance * distance ) );
     
     // Combine results

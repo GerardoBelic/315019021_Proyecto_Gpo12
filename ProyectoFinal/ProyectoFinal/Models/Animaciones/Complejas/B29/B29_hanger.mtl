@@ -1,0 +1,229 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 26.05.2019 00:25:44
+
+newmtl Material_000001
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29tubehng.png
+	map_Kd nv_b29tubehng.png
+	map_bump b29brun_n.png
+	bump b29brun_n.png
+
+newmtl Material_000141
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29pithng.png
+	map_Kd nv_b29pithng.png
+	map_bump nv_b29pithng_n.png
+	bump nv_b29pithng_n.png
+
+newmtl Material_001540
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29wheelhng.png
+	map_Kd nv_b29wheelhng.png
+	map_bump nv_b29wheelhng_n.png
+	bump nv_b29wheelhng_n.png
+
+newmtl Material_001bf1
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29tailhng.png
+	map_Kd nv_b29tailhng.png
+	map_bump nv_b29tailhng_n.png
+	bump nv_b29tailhng_n.png
+
+newmtl Material_001eaf
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.3569 0.3569 0.3569
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29flaphng.png
+	map_Kd nv_b29flaphng.png
+	map_bump nv_b29flaphng_n.png
+	bump nv_b29flaphng_n.png
+
+newmtl Material_002899
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29winghng.png
+	map_Kd nv_b29winghng.png
+	map_Ks nv_b29winghng_s.png
+	map_bump nv_b29winghng_n.png
+	bump nv_b29winghng_n.png
+
+newmtl Material_002b03
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.5098 0.5098 0.5098
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29enghng.png
+	map_Kd nv_b29enghng.png
+	map_bump nv_b29enghng_n.png
+	bump nv_b29enghng_n.png
+
+newmtl Material_00334f
+	Ns 50.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.2392 0.3216 0.3882
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29glashng.png
+	map_Kd nv_b29glashng.png
+	map_d nv_b29glashng_alpha.png
+	map_bump nv_b29glashng_n.png
+	bump nv_b29glashng_n.png
+
+newmtl Material_0034fa
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29florhng.png
+	map_Kd nv_b29florhng.png
+	map_bump nv_b29florhng_n.png
+	bump nv_b29florhng_n.png
+
+newmtl Material_00383d
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.3569 0.3569 0.3569
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29flaphng.png
+	map_Kd nv_b29flaphng.png
+	map_bump nv_b29flaphng_n.png
+	bump nv_b29flaphng_n.png
+
+newmtl Material_003b59
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29wheelhng.png
+	map_Kd nv_b29wheelhng.png
+	map_bump nv_b29wheelhng_n.png
+	bump nv_b29wheelhng_n.png
+
+newmtl Material_0079f9
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29florhng.png
+	map_Kd nv_b29florhng.png
+	map_bump nv_b29florhng_n.png
+	bump nv_b29florhng_n.png
+
+newmtl Material_007ac1
+	Ns 50.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29pearl.png
+	map_Kd nv_b29pearl.png
+	map_d nv_b29pear_alphal.png
+	map_bump nv_b29pearl_n.png
+	bump nv_b29pearl_n.png
+
+newmtl Material_007ae1
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.3922 0.3922 0.3922
+	Ke 0.0000 0.0000 0.0000
+	map_Ka nv_b29nosehng.png
+	map_Kd nv_b29nosehng.png
+	map_bump nv_b29nosehng_n.png
+	bump nv_b29nosehng_n.png

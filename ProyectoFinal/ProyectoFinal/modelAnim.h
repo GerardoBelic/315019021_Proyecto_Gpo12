@@ -92,7 +92,7 @@ private:
         // check for errors
         if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
         {
-            cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
+            //cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
             return;
         }
 
@@ -111,32 +111,32 @@ private:
         // retrieve the directory path of the filepath
         directory = path.substr(0, path.find_last_of('/'));
 
-		cout << "scene->HasAnimations() 1: " << scene->HasAnimations() << endl;
-		cout << "scene->mNumMeshes 1: " << scene->mNumMeshes << endl;
-		cout << "scene->mAnimations[0]->mNumChannels 1: " << scene->mAnimations[0]->mNumChannels << endl;
-		cout << "scene->mAnimations[0]->mDuration 1: " << scene->mAnimations[0]->mDuration << endl;
-		cout << "scene->mAnimations[0]->mTicksPerSecond 1: " << scene->mAnimations[0]->mTicksPerSecond << endl << endl;
+		//cout << "scene->HasAnimations() 1: " << scene->HasAnimations() << endl;
+		//cout << "scene->mNumMeshes 1: " << scene->mNumMeshes << endl;
+		//cout << "scene->mAnimations[0]->mNumChannels 1: " << scene->mAnimations[0]->mNumChannels << endl;
+		//cout << "scene->mAnimations[0]->mDuration 1: " << scene->mAnimations[0]->mDuration << endl;
+		//cout << "scene->mAnimations[0]->mTicksPerSecond 1: " << scene->mAnimations[0]->mTicksPerSecond << endl << endl;
 
-		cout << "		name nodes : " << endl;
+		//cout << "		name nodes : " << endl;
 		showNodeName(scene->mRootNode);
-		cout << endl;
+		//cout << endl;
 
-		cout << "		name bones : " << endl;
+		//cout << "		name bones : " << endl;
 		//processNode(scene->mRootNode, scene);
 		// process ASSIMP's root node recursively
 		processNode(scene->mRootNode, scene);
 
-		cout << "		name nodes animation : " << endl;
+		//cout << "		name nodes animation : " << endl;
 		for (uint i = 0; i < scene->mAnimations[0]->mNumChannels; i++)
 		{
-			cout << scene->mAnimations[0]->mChannels[i]->mNodeName.C_Str() << endl;
+			//cout << scene->mAnimations[0]->mChannels[i]->mNodeName.C_Str() << endl;
 		}
-		cout << endl;
+		//cout << endl;
     }
 
 	void showNodeName(aiNode* node)
 	{
-		cout << node->mName.data << endl;
+		//cout << node->mName.data << endl;
 		for (uint i = 0; i < node->mNumChildren; i++)
 		{
 			showNodeName(node->mChildren[i]);
@@ -164,7 +164,7 @@ private:
 
     MeshAnim processMesh(aiMesh *mesh, const aiScene *scene)
     {
-		std::cout << "bones: " << mesh->mNumBones << " vertices: " << mesh->mNumVertices << std::endl;
+		//cout << "bones: " << mesh->mNumBones << " vertices: " << mesh->mNumVertices << std::endl;
         // data to fill
         vector<Vertex> vertices;
         vector<unsigned int> indices;
@@ -254,7 +254,7 @@ private:
 			string bone_name(mesh->mBones[i]->mName.data);
 
 			// Impresión de los nombres de los huesos
-			cout << mesh->mBones[i]->mName.data << endl;
+			//cout << mesh->mBones[i]->mName.data << endl;
 
 			if (m_bone_mapping.find(bone_name) == m_bone_mapping.end()) // ��������� ��� �� � ������� ��������
 			{
@@ -267,7 +267,7 @@ private:
 				m_bone_matrices[bone_index].offset_matrix = mesh->mBones[i]->mOffsetMatrix; // Aqui hay que agregar el giro HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 				m_bone_mapping[bone_name] = bone_index;
 
-				//cout << "bone_name: " << bone_name << "			 bone_index: " << bone_index << endl;
+				////cout << "bone_name: " << bone_name << "			 bone_index: " << bone_index << endl;
 			}
 			else
 			{
@@ -281,7 +281,7 @@ private:
 				bones_id_weights_for_each_vertex[vertex_id].addBoneData(bone_index, weight); // � ������ ������� ����� ����� � �� ���
 
 				// ������ ������� vertex_id �� ������ ����� � �������� bone_index  ����� ��� weight
-				//cout << " vertex_id: " << vertex_id << "	bone_index: " << bone_index << "		weight: " << weight << endl;
+				////cout << " vertex_id: " << vertex_id << "	bone_index: " << bone_index << "		weight: " << weight << endl;
 			}
 		}
         
@@ -404,12 +404,12 @@ private:
 		// ������ = (���� ������� ������ �� ������ �������� ��������� �����) / �� ���� ����� �������
 		float factor = (p_animation_time - (float)p_node_anim->mRotationKeys[rotation_index].mTime) / delta_time;
 
-		//cout << "p_node_anim->mRotationKeys[rotation_index].mTime: " << p_node_anim->mRotationKeys[rotation_index].mTime << endl;
-		//cout << "p_node_anim->mRotationKeys[next_rotaion_index].mTime: " << p_node_anim->mRotationKeys[next_rotation_index].mTime << endl;
-		//cout << "delta_time: " << delta_time << endl;
-		//cout << "animation_time: " << p_animation_time << endl;
-		//cout << "animation_time - mRotationKeys[rotation_index].mTime: " << (p_animation_time - (float)p_node_anim->mRotationKeys[rotation_index].mTime) << endl;
-		//cout << "factor: " << factor << endl << endl << endl;
+		////cout << "p_node_anim->mRotationKeys[rotation_index].mTime: " << p_node_anim->mRotationKeys[rotation_index].mTime << endl;
+		////cout << "p_node_anim->mRotationKeys[next_rotaion_index].mTime: " << p_node_anim->mRotationKeys[next_rotation_index].mTime << endl;
+		////cout << "delta_time: " << delta_time << endl;
+		////cout << "animation_time: " << p_animation_time << endl;
+		////cout << "animation_time - mRotationKeys[rotation_index].mTime: " << (p_animation_time - (float)p_node_anim->mRotationKeys[rotation_index].mTime) << endl;
+		////cout << "factor: " << factor << endl << endl << endl;
 
 		assert(factor >= 0.0f && factor <= 1.0f);
 		aiQuaternion start_quat = p_node_anim->mRotationKeys[rotation_index].mValue;
@@ -432,7 +432,7 @@ private:
 		float delta_time = (float)(p_node_anim->mScalingKeys[next_scaling_index].mTime - p_node_anim->mScalingKeys[scaling_index].mTime);
 		// ������ = (���� ������� ������ �� ������ �������� ��������� �����) / �� ���� ����� �������
 		float  factor = (p_animation_time - (float)p_node_anim->mScalingKeys[scaling_index].mTime) / delta_time;
-		//cout << "p_animation_time: " << p_animation_time << " " << "mTime: " << (float)p_node_anim->mScalingKeys[scaling_index].mTime << endl << endl << endl;
+		////cout << "p_animation_time: " << p_animation_time << " " << "mTime: " << (float)p_node_anim->mScalingKeys[scaling_index].mTime << endl << endl << endl;
 		assert(factor >= 0.0f && factor <= 1.0f);
 		aiVector3D start = p_node_anim->mScalingKeys[scaling_index].mValue;
 		aiVector3D end = p_node_anim->mScalingKeys[next_scaling_index].mValue;
@@ -537,17 +537,17 @@ private:
 		result[2].x = ai_matr.a3; result[2].y = ai_matr.b3; result[2].z = ai_matr.c3; result[2].w = ai_matr.d3;
 		result[3].x = ai_matr.a4; result[3].y = ai_matr.b4; result[3].z = ai_matr.c4; result[3].w = ai_matr.d4;
 
-		//cout << " " << result[0].x << "		 " << result[0].y << "		 " << result[0].z << "		 " << result[0].w << endl;
-		//cout << " " << result[1].x << "		 " << result[1].y << "		 " << result[1].z << "		 " << result[1].w << endl;
-		//cout << " " << result[2].x << "		 " << result[2].y << "		 " << result[2].z << "		 " << result[2].w << endl;
-		//cout << " " << result[3].x << "		 " << result[3].y << "		 " << result[3].z << "		 " << result[3].w << endl;
-		//cout << endl;
+		////cout << " " << result[0].x << "		 " << result[0].y << "		 " << result[0].z << "		 " << result[0].w << endl;
+		////cout << " " << result[1].x << "		 " << result[1].y << "		 " << result[1].z << "		 " << result[1].w << endl;
+		////cout << " " << result[2].x << "		 " << result[2].y << "		 " << result[2].z << "		 " << result[2].w << endl;
+		////cout << " " << result[3].x << "		 " << result[3].y << "		 " << result[3].z << "		 " << result[3].w << endl;
+		////cout << endl;
 
-		//cout << " " << ai_matr.a1 << "		 " << ai_matr.b1 << "		 " << ai_matr.c1 << "		 " << ai_matr.d1 << endl;
-		//cout << " " << ai_matr.a2 << "		 " << ai_matr.b2 << "		 " << ai_matr.c2 << "		 " << ai_matr.d2 << endl;
-		//cout << " " << ai_matr.a3 << "		 " << ai_matr.b3 << "		 " << ai_matr.c3 << "		 " << ai_matr.d3 << endl;
-		//cout << " " << ai_matr.a4 << "		 " << ai_matr.b4 << "		 " << ai_matr.c4 << "		 " << ai_matr.d4 << endl;
-		//cout << endl;
+		////cout << " " << ai_matr.a1 << "		 " << ai_matr.b1 << "		 " << ai_matr.c1 << "		 " << ai_matr.d1 << endl;
+		////cout << " " << ai_matr.a2 << "		 " << ai_matr.b2 << "		 " << ai_matr.c2 << "		 " << ai_matr.d2 << endl;
+		////cout << " " << ai_matr.a3 << "		 " << ai_matr.b3 << "		 " << ai_matr.c3 << "		 " << ai_matr.d3 << endl;
+		////cout << " " << ai_matr.a4 << "		 " << ai_matr.b4 << "		 " << ai_matr.c4 << "		 " << ai_matr.d4 << endl;
+		////cout << endl;
 
 		return result;
 	}
@@ -555,7 +555,7 @@ private:
 
 	aiQuaternion nlerp(aiQuaternion a, aiQuaternion b, float blend)
 	{
-		//cout << a.w + a.x + a.y + a.z << endl;
+		////cout << a.w + a.x + a.y + a.z << endl;
 		a.Normalize();
 		b.Normalize();
 
