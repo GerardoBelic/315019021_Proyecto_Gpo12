@@ -26,6 +26,7 @@
 #include "Texture.h"
 #include "modelAnim.h"
 #include <random>
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 // Function prototypes
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
